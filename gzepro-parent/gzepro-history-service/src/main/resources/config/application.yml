@@ -1,0 +1,23 @@
+server:
+  port: 9161
+spring:
+  application:
+    name: gzepro-history-service
+  profiles:
+    include:
+      - mybatis
+eureka:
+  client:
+    service-url:
+      defaultZone: http://127.0.0.1:9001/eureka/
+  instance:
+    instance-id: ${spring.application.name}-${server.port}
+    prefer-ip-address: true
+info:
+  application:
+    name: ${spring.application.name}
+    descript: 状态监测、寿命预测、健康评估、故障诊断、维修决策等历史数据的查询统计。
+  build:
+    groupId: $project.groupId$
+    artifactId: $project.artifactId$
+    version: $project.version$

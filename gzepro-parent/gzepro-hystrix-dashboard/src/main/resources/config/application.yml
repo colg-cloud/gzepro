@@ -1,0 +1,5 @@
+server:
+  port: 9221
+spring:
+  application:
+    name: zepro-hystrix-dashboard

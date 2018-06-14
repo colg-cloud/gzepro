@@ -1,0 +1,23 @@
+server:
+  port: 9201
+spring:
+  application:
+    name: gzepro-zuul-server
+eureka:
+  client:
+    service-url:
+      defaultZone: http://127.0.0.1:9001/eureka/
+  instance:
+    instance-id: ${spring.application.name}-${server.port}
+    prefer-ip-address: true
+zuul:
+  ignored-services: '*'                                                           # 忽略真实服务名称，使用自定义的路由映射
+  prefix: /gzepro                                                                 # 服务前缀
+info:
+  application:
+    name: ${spring.application.name}
+    descript: api网关集群，实现反向代理和客户端负载均衡。
+  build:
+    groupId: $project.groupId$
+    artifactId: $project.artifactId$
+    version: $project.version$

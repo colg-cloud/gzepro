@@ -1,0 +1,46 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>com.gzepro</groupId>
+        <artifactId>gzepro-parent</artifactId>
+        <version>0.0.1-SNAPSHOT</version>
+    </parent>
+    <artifactId>gzepro-hystrix-dashboard</artifactId>
+    <name>gzepro-hystrix-dashboard :: 仪表盘</name>
+    <description>图形化了解单个应用内的服务信息，包括请求响应时间, 请求成功率等数据</description>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.gzepro</groupId>
+            <artifactId>gzepro-common</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        
+		<!-- actuator 监控和信息配置 -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-actuator</artifactId>
+        </dependency>
+
+        <!-- springloaded devtools 热部署 -->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>springloaded</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-devtools</artifactId>
+        </dependency>
+        
+        <!-- hystrix 依赖 -->
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-hystrix</artifactId>
+        </dependency>
+        <!-- hystrix-dashboard 依赖 -->
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-hystrix-dashboard</artifactId>
+        </dependency>
+    </dependencies>
+</project>

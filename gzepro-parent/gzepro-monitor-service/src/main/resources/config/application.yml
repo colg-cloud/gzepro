@@ -1,0 +1,29 @@
+server:
+  port: 9101
+spring:
+  application:
+    name: gzepro-monitor-service                                                          # 应用名称（对外暴露的微服务名称）
+  profiles:
+    include:                                                                              # 激活配置文件
+      - mybatis
+      - redis
+      - mongodb
+  mvc:
+    throw-exception-if-no-handler-found: true
+  resources:
+    add-mappings: false
+eureka:
+  client:
+    service-url:                                                                          # 将客户端注册进 eureka 服务列表内
+      defaultZone: http://127.0.0.1:9001/eureka/
+  instance:
+    instance-id: ${spring.application.name}-${server.port}                                # 自定义 hystrix 相关的服务名称信息
+    prefer-ip-address: true                                                               # 访问路径可以显示 ip 地址
+info:                                                                                     # 配置   eureka info信息
+  application:
+    name: ${spring.application.name}
+    descript: 第三方的状态监测服务，在本系统中支持集群部署多个服务，由feign-consume实现负载均衡。
+  build:
+    groupId: $project.groupId$
+    artifactId: $project.artifactId$
+    version: $project.version$

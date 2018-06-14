@@ -1,0 +1,30 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>com.gzepro</groupId>
+        <artifactId>gzepro-parent</artifactId>
+        <version>0.0.1-SNAPSHOT</version>
+    </parent>
+    <artifactId>gzepro-feign-consume</artifactId>
+    <name>gzepro-feign-consume :: 负载均衡</name>
+    <description>负责调用第三方服务、响应前端，负责第三方服务的具体api管理</description>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.gzepro</groupId>
+            <artifactId>gzepro-common</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+
+		<!-- feign 依赖 -->
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-feign</artifactId>
+        </dependency>
+		<!-- hystrix 依赖 -->
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-hystrix</artifactId>
+        </dependency>
+    </dependencies>
+</project>

@@ -1,0 +1,25 @@
+server:
+  port: 9211
+spring:
+  application:
+    name: gzepro-config-server
+  cloud:
+    config:
+      server:
+        git:
+          uri: git@github.com:colg-cloud/spring-cloud-config.git                          # GitHub 上面的 git 仓库地址
+eureka:
+  client:
+    service-url:                                                                          # 将客户端注册进 eureka 服务列表内
+      defaultZone: http://127.0.0.1:9001/eureka/
+  instance:
+    instance-id: ${spring.application.name}-${server.port}                                # 自定义 hystrix 相关的服务名称信息
+    prefer-ip-address: true                                                               # 访问路径可以显示 ip 地址
+info:                                                                                     # 配置   eureka info信息
+  application:
+    name: ${spring.application.name}
+    descript: 统一的管理分布式系统的配置中心, 支持在Git, SVN和本地存放配置文件, 方便开发人员随时改配置。
+  build:
+    groupId: $project.groupId$
+    artifactId: $project.artifactId$
+    version: $project.version$

@@ -1,0 +1,23 @@
+server:
+  port: 9151
+spring:
+  application:
+    name: gzepro-manage-service
+  profiles:
+    include:
+      - mybatis
+eureka:
+  client:
+    service-url:
+      defaultZone: http://127.0.0.1:9001/eureka/
+  instance:
+    instance-id: ${spring.application.name}-${server.port}
+    prefer-ip-address: true
+info:
+  application:
+    name: ${spring.application.name}
+    descript: 包括用户注册、用户管理、角色管理、权限管理、基础数据等后台管理功能模块、案例数据的生成。
+  build:
+    groupId: $project.groupId$
+    artifactId: $project.artifactId$
+    version: $project.version$

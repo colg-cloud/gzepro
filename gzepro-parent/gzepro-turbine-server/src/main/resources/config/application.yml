@@ -1,0 +1,23 @@
+server:
+  port: 9222
+spring:
+  application:
+    name: gzepro-turbine-server
+eureka:
+  client:
+    service-url:                                                                          # 将客户端注册进 eureka 服务列表内
+      defaultZone: http://127.0.0.1:9001/eureka/
+  instance:
+    instance-id: ${spring.application.name}-${server.port}
+    prefer-ip-address: true
+info:
+  application:
+    name: ${spring.application.name}
+    descript: 监控服务集群，汇聚监控信息，并将汇聚到的监控信息提供给Hystrix Dashboard来集中展示和监控。
+  build:
+    groupId: $project.groupId$
+    artifactId: $project.artifactId$
+    version: $project.version$
+turbine:
+  app-config: zepro-hystrix-dashboard
+  combine-host-port: true                                                                 # 让同一主机上的服务通过主机名与端口号的组合来进行区分
