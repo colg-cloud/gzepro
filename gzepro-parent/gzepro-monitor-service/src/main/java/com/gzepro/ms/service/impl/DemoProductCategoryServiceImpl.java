@@ -55,12 +55,17 @@ public class DemoProductCategoryServiceImpl extends BaseServiceImpl implements D
         demoProductCategoryMapper.updateByPrimaryKey(demoProductCategory);
 
         if (RandomUtils.nextBoolean()) {
-            throwFail("测试事务是否回滚");
+            throwFail("test.transaction");
         }
     }
 
     @Override
     public List<DemoProductCategory> selectProductCategory(int pageNum, int pageSize) {
+        if (RandomUtils.nextBoolean()) {
+            throwFail("test.transaction");
+        } else {
+            throwFail("根据 msgKey 找不到对应的 value");
+        }
         return PageHelper.startPage(pageNum, pageSize)
                          .doSelectPage(() -> demoProductCategoryMapper.selectAll());
     }

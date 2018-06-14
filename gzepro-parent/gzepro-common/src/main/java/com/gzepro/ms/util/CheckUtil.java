@@ -1,7 +1,13 @@
 package com.gzepro.ms.util;
 
 import java.util.Collection;
+import java.util.Locale;
 import java.util.Map;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
+import org.springframework.context.i18n.LocaleContextHolder;
+import org.springframework.stereotype.Component;
 
 import com.gzepro.ms.exception.CheckException;
 
@@ -10,7 +16,15 @@ import com.gzepro.ms.exception.CheckException;
  *
  * @author colg
  */
+@Component
 public final class CheckUtil {
+
+    private static MessageSource messageSource;
+
+    @Autowired
+    public void init(MessageSource messageSource) {
+        CheckUtil.messageSource = messageSource;
+    }
 
     private CheckUtil() {}
 
@@ -18,12 +32,12 @@ public final class CheckUtil {
      * 表达式的结果为 false 时，抛出校验异常
      *
      * @param bool 校验条件
-     * @param msg 消息提示
+     * @param msgKey 消息提示的 key ，支持国际化
      * @author colg
      */
-    public static void checkTrue(boolean bool, String msg) {
+    public static void checkTrue(boolean bool, String msgKey) {
         if (!bool) {
-            throwFail(msg);
+            throwFail(msgKey);
         }
     }
 
@@ -31,12 +45,12 @@ public final class CheckUtil {
      * 表达式的结果为 true 时，抛出校验异常
      *
      * @param bool 校验条件
-     * @param msg 消息提示
+     * @param msgKey 消息提示的 key ，支持国际化
      * @author colg
      */
-    public static void checkFalse(boolean bool, String msg) {
+    public static void checkFalse(boolean bool, String msgKey) {
         if (bool) {
-            throwFail(msg);
+            throwFail(msgKey);
         }
     }
 
@@ -48,31 +62,31 @@ public final class CheckUtil {
      * 4、Collection/Map: size()==0 <br>
      *
      * @param value 需要校验的对象，字符串，集合
-     * @param msg 错误消息提示
+     * @param msgKey 消息提示的 key ，支持国际化
      * @author colg
      */
-    public static void checkNotNull(Object value, String msg) {
+    public static void checkNotNull(Object value, String msgKey) {
         if (value == null) {
-            throwFail(msg);
+            throwFail(msgKey);
         }
 
         if (value instanceof String) {
             // 校验 String
             String str = (String)value;
             if (str.trim().length() == 0) {
-                throwFail(msg);
+                throwFail(msgKey);
             }
         } else if (value instanceof Collection<?>) {
             // 校验 Collection
             Collection<?> coll = (Collection<?>)value;
             if (coll.size() == 0) {
-                throwFail(msg);
+                throwFail(msgKey);
             }
         } else if (value instanceof Map<?, ?>) {
             // 校验 Map
             Map<?, ?> map = (Map<?, ?>)value;
             if (map.size() == 0) {
-                throwFail(msg);
+                throwFail(msgKey);
             }
         }
     }
@@ -81,22 +95,25 @@ public final class CheckUtil {
      * 对象不为 null 时，抛出校验异常，空白的定义如下： <br>
      *
      * @param value 需要校验的对象
-     * @param msg 错误消息提示
+     * @param msgKey 消息提示的 key ，支持国际化
      * @author colg
      */
-    public static void checkNull(Object value, String msg) {
+    public static void checkNull(Object value, String msgKey) {
         if (value != null) {
-            throwFail(msg);
+            throwFail(msgKey);
         }
     }
 
     /**
      * 抛出校验异常
      *
-     * @param msg 错误提示消息
+     * @param msgKey 消息提示的 key ，支持国际化。
      * @author colg
      */
-    public static void throwFail(String msg) {
-        throw new CheckException(msg);
+    public static void throwFail(String msgKey) {
+        Locale locale = LocaleContextHolder.getLocale();
+        // 如果根据 msgKey 找不到 value ，则返回 msgKey 。
+        String message = messageSource.getMessage(msgKey, null, msgKey, locale);
+        throw new CheckException(message);
     }
 }
